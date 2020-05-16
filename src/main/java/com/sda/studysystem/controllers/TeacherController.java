@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -17,12 +18,13 @@ import java.util.List;
  * @author Alar
  */
 
-@Controller("/teacher")
+@Controller
+@RequestMapping("/teacher")
 public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String showAllTeachers(Model model) {
         List<Teacher> teachers = teacherService.getAllTeachers();
         model.addAttribute("teachers", teachers);
@@ -56,8 +58,8 @@ public class TeacherController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateTeacher(@PathVariable("id") Long teacherId, Teacher teacher, Model model) {
-        teacher.setId(teacherId);
+    public String updateTeacher(@PathVariable("id") String teacherId, Teacher teacher, Model model) {
+        teacher.setTeacherId(teacherId);
         boolean updateResult = teacherService.updateTeacher(teacher);
 
         if (updateResult) {
@@ -73,7 +75,7 @@ public class TeacherController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteTeacher(@PathVariable("id") Long teacherId, Model model) {
+    public String deleteTeacher(@PathVariable("id") String teacherId, Model model) {
         boolean deleteResult = teacherService.deleteTeacherById(teacherId);
 
         if (deleteResult) {
@@ -86,5 +88,5 @@ public class TeacherController {
         }
         return showAllTeachers(model);
     }
-    
+
 }

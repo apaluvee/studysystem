@@ -3,9 +3,8 @@ package com.sda.studysystem.models;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 /**
  * Teacher model
@@ -14,13 +13,13 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class Teacher {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    private String teacherId;
+    private String name;
+    private LocalDate joinDate;
+    private boolean isActive;
+    private String school;
+    private String specialistFields;
 
-    private String firstName;
-    private String lastName;
-    private String address;
-    private String phone;
 }

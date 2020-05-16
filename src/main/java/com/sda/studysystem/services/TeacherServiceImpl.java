@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Implementation of TeacherService
+ *
  * @author Alar
  */
 
@@ -22,13 +24,14 @@ public class TeacherServiceImpl implements TeacherService {
         if (teacher == null) {
             return false;
         }
+        teacher.setTeacherId(getNewTeacherId());
         teacherRepository.save(teacher);
         return true;
     }
 
     @Override
     public boolean updateTeacher(Teacher teacher) {
-        if (teacher == null || !teacherRepository.existsById(teacher.getId())) {
+        if (teacher == null || !teacherRepository.existsById(teacher.getTeacherId())) {
             return false;
         }
         teacherRepository.saveAndFlush(teacher);
@@ -37,7 +40,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Teacher getById(Long teacherId) {
+    public Teacher getById(String teacherId) {
         return teacherRepository.getOne(teacherId);
     }
 
@@ -47,11 +50,16 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean deleteTeacherById(Long teacherId) {
-        if(teacherId == null || !teacherRepository.existsById(teacherId)) {
+    public boolean deleteTeacherById(String teacherId) {
+        if (teacherId.isEmpty() || !teacherRepository.existsById(teacherId)) {
             return false;
         }
         teacherRepository.deleteById(teacherId);
         return false;
     }
+
+    private String getNewTeacherId() {
+        return null;
+    }
+
 }
