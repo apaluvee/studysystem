@@ -54,13 +54,7 @@ public class SpecializedFieldServiceImpl implements SpecializedFieldService {
             return false;
         }
         specializedField.setActive(false);
-        updateSpecializedField(specializedField);
-        return false;
-    }
-
-    private String getNewSpecializedFieldId() {
-        double specializedFieldId = Math.random();
-        return "" + specializedFieldId;
+        return updateSpecializedField(specializedField);
     }
 
     @Override

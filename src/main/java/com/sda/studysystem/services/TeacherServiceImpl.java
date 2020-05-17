@@ -54,13 +54,7 @@ public class TeacherServiceImpl implements TeacherService {
             return false;
         }
         teacher.setActive(false);
-        updateTeacher(teacher);
-        return false;
-    }
-
-    private String getNewTeacherId() {
-        double teacherId = Math.random();
-        return "" + teacherId;
+        return updateTeacher(teacher);
     }
 
     @Override

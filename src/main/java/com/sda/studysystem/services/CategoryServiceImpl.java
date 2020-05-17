@@ -54,13 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
             return false;
         }
         category.setActive(false);
-        updateCategory(category);
-        return false;
-    }
-
-    private String getNewCategoryId() {
-        double categoryId = Math.random();
-        return "" + categoryId;
+        return updateCategory(category);
     }
 
     @Override

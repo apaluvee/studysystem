@@ -54,13 +54,7 @@ public class CityServiceImpl implements CityService {
             return false;
         }
         city.setActive(false);
-        updateCity(city);
-        return false;
-    }
-
-    private String getNewCityId() {
-        double cityId = Math.random();
-        return "" + cityId;
+        return updateCity(city);
     }
 
     @Override

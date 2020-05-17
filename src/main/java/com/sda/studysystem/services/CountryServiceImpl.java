@@ -54,13 +54,7 @@ public class CountryServiceImpl implements CountryService {
             return false;
         }
         country.setActive(false);
-        updateCountry(country);
-        return false;
-    }
-
-    private String getNewCountryId() {
-        double countryId = Math.random();
-        return "" + countryId;
+        return updateCountry(country);
     }
 
     @Override

@@ -54,13 +54,7 @@ public class SchoolServiceImpl implements SchoolService {
             return false;
         }
         school.setActive(false);
-        updateSchool(school);
-        return false;
-    }
-
-    private String getNewSchoolId() {
-        double schoolId = Math.random();
-        return "" + schoolId;
+        return updateSchool(school);
     }
 
     @Override

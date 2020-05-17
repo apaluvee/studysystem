@@ -54,13 +54,7 @@ public class CountyServiceImpl implements CountyService {
             return false;
         }
         county.setActive(false);
-        updateCounty(county);
-        return false;
-    }
-
-    private String getNewCountyId() {
-        double countyId = Math.random();
-        return "" + countyId;
+        return updateCounty(county);
     }
 
     @Override

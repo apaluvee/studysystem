@@ -52,8 +52,8 @@ public interface CountryService {
     /**
      * To restore a country (change active state)
      *
-     * @param countryId
-     * @return
+     * @param countryId countryId
+     * @return is it restored
      */
     boolean restoreCountryById(Long countryId);
 }

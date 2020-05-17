@@ -54,13 +54,7 @@ public class StudentServiceImpl implements StudentService {
             return false;
         }
         student.setActive(false);
-        updateStudent(student);
-        return false;
-    }
-
-    private String getNewStudentId() {
-        double studentId = Math.random();
-        return "" + studentId;
+        return updateStudent(student);
     }
 
     @Override
