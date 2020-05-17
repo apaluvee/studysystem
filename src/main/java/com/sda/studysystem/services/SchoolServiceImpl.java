@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of SchoolService
+ *
+ * @author Alar
+ */
+
 @Service
 public class SchoolServiceImpl implements SchoolService {
     @Autowired

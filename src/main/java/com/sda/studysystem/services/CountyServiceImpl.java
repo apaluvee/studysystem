@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of CountyService
+ *
+ * @author Alar
+ */
+
 @Service
 public class CountyServiceImpl implements CountyService {
     @Autowired

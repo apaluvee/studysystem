@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of CategoryService
+ *
+ * @author Alar
+ */
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired

@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * Teacher model
+ *
+ * @author Alar
  */
 
 @Entity

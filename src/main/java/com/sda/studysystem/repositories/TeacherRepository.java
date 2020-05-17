@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Repository for Teacher entity
+ *
+ * @author Alar
  */
 
 @Repository

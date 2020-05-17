@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ * Controller for Country operations
+ *
+ * @author Alar
+ */
+
 @Controller
 @RequestMapping("/country")
 public class CountryController {
@@ -23,12 +29,12 @@ public class CountryController {
     public String showAllCountries(Model model) {
         List<Country> countries = countryService.getAllCountries();
         model.addAttribute("countries", countries);
-        return "show-all-countries";
+        return "country/country-list";
     }
 
     @GetMapping("/add")
-    public String addCountryForm(Model model) {
-        return "add-country";
+    public String addCountryForm(Model model, Country country) {
+        return "country/country-add";
     }
 
     @PostMapping("/add")
@@ -44,13 +50,14 @@ public class CountryController {
             model.addAttribute("country", country);
             model.addAttribute("message", "Error in creating a country");
             model.addAttribute("messageType", "error");
-            return addCountryForm(model);
+            return addCountryForm(model, country);
         }
     }
 
-    @GetMapping("/update")
-    public String updateCountryForm(Model model) {
-        return "update-country";
+    @GetMapping("/update/{id}")
+    public String updateCountryForm(@PathVariable("id") Long countryId, Model model) {
+        model.addAttribute("country", countryService.getById(countryId));
+        return "country/country-update";
     }
 
     @PostMapping("/update/{id}")
@@ -66,7 +73,7 @@ public class CountryController {
             model.addAttribute("country", country);
             model.addAttribute("message", "Error in updating a country");
             model.addAttribute("messageType", "error");
-            return updateCountryForm(model);
+            return "country/country-update";
         }
     }
 

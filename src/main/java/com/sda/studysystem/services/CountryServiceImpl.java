@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of CountryService
+ *
+ * @author Alar
+ */
+
 @Service
 public class CountryServiceImpl implements CountryService {
     @Autowired

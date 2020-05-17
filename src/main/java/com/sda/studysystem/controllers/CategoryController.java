@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ * Controller for Category operations
+ *
+ * @author Alar
+ */
+
 @Controller
 @RequestMapping("/category")
 public class CategoryController {

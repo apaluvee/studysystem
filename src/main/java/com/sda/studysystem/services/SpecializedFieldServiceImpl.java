@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of SpecializedFieldService
+ *
+ * @author Alar
+ */
+
 @Service
 public class SpecializedFieldServiceImpl implements SpecializedFieldService {
     @Autowired

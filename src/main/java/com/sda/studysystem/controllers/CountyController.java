@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ * Controller for County operations
+ *
+ * @author Alar
+ */
+
 @Controller
 @RequestMapping("/county")
 public class CountyController {

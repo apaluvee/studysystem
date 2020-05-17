@@ -7,6 +7,8 @@ import java.time.LocalDate;
 
 /**
  * Student model
+ *
+ * @author Alar
  */
 
 @Entity

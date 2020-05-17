@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ * Controller for School operations
+ *
+ * @author Alar
+ */
+
 @Controller
 @RequestMapping("/school")
 public class SchoolController {

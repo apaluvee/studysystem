@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ * Controller for SpecializedField operations
+ *
+ * @author Alar
+ */
+
 @Controller
 @RequestMapping("/specializedField")
 public class SpecializedFieldController {

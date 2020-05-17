@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implementation of CityService
+ *
+ * @author Alar
+ */
+
 @Service
 public class CityServiceImpl implements CityService {
     @Autowired

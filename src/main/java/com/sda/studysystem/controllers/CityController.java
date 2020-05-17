@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ * Controller for City operations
+ *
+ * @author Alar
+ */
+
 @Controller
 @RequestMapping("/city")
 public class CityController {
