@@ -13,12 +13,14 @@ public interface TeacherService {
 
     /**
      * To create a new Teacher
+     *
      * @param teacher Teacher
      */
     boolean createTeacher(Teacher teacher);
 
     /**
      * To update an existing Teacher
+     *
      * @param teacher teacher
      * @return update result
      */
@@ -26,22 +28,33 @@ public interface TeacherService {
 
     /**
      * To get a teacher by its id
+     *
      * @param teacherId id of a teacher
      * @return Teacher
      */
-    Teacher getById(String teacherId);
+    Teacher getById(Long teacherId);
 
     /**
      * To get all the Teachers
+     *
      * @return list of all teachers
      */
     List<Teacher> getAllTeachers();
 
     /**
-     * To delete a teacher by its id
+     * To delete a teacher (change active state)
+     *
      * @param teacherId teacherId
      * @return is it deleted
      */
-    boolean deleteTeacherById(String teacherId);
+    boolean deleteTeacherById(Long teacherId);
+
+    /**
+     * To restore a teacher (change active state)
+     *
+     * @param teacherId
+     * @return
+     */
+    boolean restoreTeacherById(Long teacherId);
 
 }

@@ -3,22 +3,21 @@ package com.sda.studysystem.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 /**
- * Student model
+ * Specialized Field model
+ *
+ * @author Alar
  */
 
 @Entity
 @Data
-public class Student {
+public class SpecializedField {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long studentId;
+    private Long id;
     private String name;
-    private LocalDate joinDate;
-    private boolean isActive;
     @OneToOne
-    private School school;
-    private int grade;
+    private Category category;
+    private boolean isActive;
 }

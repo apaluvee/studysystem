@@ -38,6 +38,7 @@ public class TeacherController {
 
     @PostMapping("/add")
     public String addTeacher(Teacher teacher, Model model) {
+        teacher.setActive(true);
         boolean createResult = teacherService.createTeacher(teacher);
 
         if (createResult) {
@@ -58,7 +59,7 @@ public class TeacherController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateTeacher(@PathVariable("id") String teacherId, Teacher teacher, Model model) {
+    public String updateTeacher(@PathVariable("id") Long teacherId, Teacher teacher, Model model) {
         teacher.setTeacherId(teacherId);
         boolean updateResult = teacherService.updateTeacher(teacher);
 
@@ -75,7 +76,7 @@ public class TeacherController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteTeacher(@PathVariable("id") String teacherId, Model model) {
+    public String deleteTeacher(@PathVariable("id") Long teacherId, Model model) {
         boolean deleteResult = teacherService.deleteTeacherById(teacherId);
 
         if (deleteResult) {
@@ -84,6 +85,21 @@ public class TeacherController {
 
         } else {
             model.addAttribute("message", "Error in deleting a teacher");
+            model.addAttribute("messageType", "error");
+        }
+        return showAllTeachers(model);
+    }
+
+    @GetMapping("/restore/{id}")
+    public String restoreTeacher(@PathVariable("id") Long teacherId, Model model) {
+        boolean restoreResult = teacherService.restoreTeacherById(teacherId);
+
+        if (restoreResult) {
+            model.addAttribute("message", "Teacher has been successfully restored");
+            model.addAttribute("messageType", "success");
+
+        } else {
+            model.addAttribute("message", "Error in restoring a teacher");
             model.addAttribute("messageType", "error");
         }
         return showAllTeachers(model);

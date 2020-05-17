@@ -23,14 +23,14 @@ public class TeacherServiceImpl implements TeacherService {
         if (teacher == null) {
             return false;
         }
-        teacher.setTeacherId(getNewTeacherId());
+        teacher.setTeacherId(teacher.getTeacherId());
         teacherRepository.save(teacher);
         return true;
     }
 
     @Override
     public boolean updateTeacher(Teacher teacher) {
-        if (teacher == null || !teacherRepository.existsById(teacher.getTeacherId())) {
+        if (teacher == null) {
             return false;
         }
         teacherRepository.saveAndFlush(teacher);
@@ -38,7 +38,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Teacher getById(String teacherId) {
+    public Teacher getById(Long teacherId) {
         return teacherRepository.getOne(teacherId);
     }
 
@@ -48,16 +48,29 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean deleteTeacherById(String teacherId) {
-        if (teacherId.isEmpty() || !teacherRepository.existsById(teacherId)) {
+    public boolean deleteTeacherById(Long teacherId) {
+        Teacher teacher = getById(teacherId);
+        if (teacherId == null) {
             return false;
         }
-        teacherRepository.deleteById(teacherId);
+        teacher.setActive(false);
+        updateTeacher(teacher);
         return false;
     }
 
     private String getNewTeacherId() {
-        return null;
+        double teacherId = Math.random();
+        return "" + teacherId;
+    }
+
+    @Override
+    public boolean restoreTeacherById(Long teacherId) {
+        Teacher teacher = getById(teacherId);
+        if (teacherId == null) {
+            return false;
+        }
+        teacher.setActive(true);
+        return updateTeacher(teacher);
     }
 
 }

@@ -13,12 +13,14 @@ public interface StudentService {
 
     /**
      * To create a new Student
+     *
      * @param student Student
      */
     boolean createStudent(Student student);
 
     /**
      * To update an existing Student
+     *
      * @param student student
      * @return update result
      */
@@ -26,10 +28,11 @@ public interface StudentService {
 
     /**
      * To get a student by its id
+     *
      * @param studentId id of a student
      * @return Student
      */
-    Student getById(String studentId);
+    Student getById(Long studentId);
 
     /**
      * To get all the Students
@@ -38,9 +41,18 @@ public interface StudentService {
     List<Student> getAllStudents();
 
     /**
-     * To delete a student by its id
+     * To delete a student (change active state)
+     *
      * @param studentId studentId
      * @return is it deleted
      */
-    boolean deleteStudentById(String studentId);
+    boolean deleteStudentById(Long studentId);
+
+    /**
+     * To restore a student (change active state)
+     *
+     * @param studentId
+     * @return
+     */
+    boolean restoreStudentById(Long studentId);
 }
