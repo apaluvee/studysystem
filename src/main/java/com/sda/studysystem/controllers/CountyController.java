@@ -29,7 +29,7 @@ public class CountyController {
     public String showAllCounties(Model model) {
         List<County> counties = countyService.getAllCounties();
         model.addAttribute("counties", counties);
-        return "show-all-counties";
+        return "county/county-list";
     }
 
     @GetMapping("/add")
@@ -54,9 +54,10 @@ public class CountyController {
         }
     }
 
-    @GetMapping("/update")
-    public String updateCountyForm(Model model) {
-        return "update-county";
+    @GetMapping("/update/{id}")
+    public String updateCountyForm(@PathVariable("id") Long countyId, Model model) {
+        model.addAttribute("county", countyService.getById(countyId));
+        return "county/county-update";
     }
 
     @PostMapping("/update/{id}")
@@ -72,7 +73,7 @@ public class CountyController {
             model.addAttribute("county", county);
             model.addAttribute("message", "Error in updating a county");
             model.addAttribute("messageType", "error");
-            return updateCountyForm(model);
+            return "county/county-update";
         }
     }
 

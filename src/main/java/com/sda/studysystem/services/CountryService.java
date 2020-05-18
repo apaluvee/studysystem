@@ -1,8 +1,6 @@
 package com.sda.studysystem.services;
 
-
 import com.sda.studysystem.models.Country;
-
 import java.util.List;
 
 /**
@@ -56,4 +54,5 @@ public interface CountryService {
      * @return is it restored
      */
     boolean restoreCountryById(Long countryId);
+
 }

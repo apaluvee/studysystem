@@ -1,7 +1,6 @@
 package com.sda.studysystem.services;
 
 import com.sda.studysystem.models.County;
-
 import java.util.List;
 
 /**
@@ -51,10 +50,9 @@ public interface CountyService {
     /**
      * To restore a county (change active state)
      *
-     * @param countyId
-     * @return
+     * @param countyId countyId
+     * @return is it restored
      */
     boolean restoreCountyById(Long countyId);
+
 }
-
-

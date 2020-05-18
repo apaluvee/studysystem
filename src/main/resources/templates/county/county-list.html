@@ -1,0 +1,115 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>County list</title>
+</head>
+<body>
+
+<div>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">SDA School</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teacher/">Teacher</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/student/">Student</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Settings
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/specialized-field/">Specialized Field</a>
+                            <a class="dropdown-item" href="/category/">Category</a>
+                            <a class="dropdown-item" href="/school/">School</a>
+                            <a class="dropdown-item" href="/city/">City</a>
+                            <a class="dropdown-item" href="/country/">Country</a>
+                            <a class="dropdown-item" href="/county/">County</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="jumbotron">
+
+            <h4 class="display-4">Counties list</h4>
+            <div th:if="${messageType} == 'success'" class="alert alert-success" role="alert">
+                <span th:text="${message}"></span>
+            </div>
+            <a href="/county/add" type="button" class="btn btn-success">Add County for selected Country</a>
+            <div class="container" th:switch="${counties.size() > 0}">
+                <h3 th:case="false">No counties available!</h3>
+                <table th:case="true" class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+
+                        <!-- Country name -->
+                        <th scope="col">Country</th>
+
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="county : ${counties}">
+                        <th scope="row" th:text="${county.id}"></th>
+                        <td th:text="${county.name}"></td>
+
+                        <!-- Country name for County -->
+                        <td th:text="${country.name}"></td>
+
+                        <td>
+                            <a th:if="${county.active} == true" th:href="@{/county/update/{id}(id=${county.id})}" class="btn btn-dark">Update</a>
+                            <a th:if="${county.active} == true" th:href="@{/county/delete/{id}(id=${county.id})}" class="btn btn-danger">Delete</a>
+                            <a th:if="${county.active} == false" th:href="@{/county/restore/{id}(id=${county.id})}" class="btn btn-warning">Restore</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+</html>
