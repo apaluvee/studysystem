@@ -33,8 +33,8 @@ public class CountyController {
     }
 
     @GetMapping("/add")
-    public String addCountyForm(Model model) {
-        return "add-county";
+    public String addCountyForm(Model model, County county) {
+        return "county/county-add";
     }
 
     @PostMapping("/add")
@@ -50,7 +50,7 @@ public class CountyController {
             model.addAttribute("county", county);
             model.addAttribute("message", "Error in creating a county");
             model.addAttribute("messageType", "error");
-            return addCountyForm(model);
+            return addCountyForm(model, county);
         }
     }
 
