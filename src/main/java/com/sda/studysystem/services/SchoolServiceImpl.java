@@ -18,12 +18,21 @@ public class SchoolServiceImpl implements SchoolService {
     @Autowired
     private SchoolRepository schoolRepository;
 
+    @Autowired
+    private CountyService countyService;
+
+    @Autowired
+    private CountryService countryService;
+
+    @Autowired
+    private CityService cityService;
+
     @Override
     public boolean createSchool(School school) {
         if (school == null) {
             return false;
         }
-        school.setId(school.getId());
+
         school.setActive(true);
         schoolRepository.save(school);
         return true;
@@ -31,9 +40,10 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public boolean updateSchool(School school) {
-        if (school == null) {
+        if (school == null || !schoolRepository.existsById(school.getId())) {
             return false;
         }
+
         schoolRepository.saveAndFlush(school);
         return true;
     }
@@ -54,8 +64,10 @@ public class SchoolServiceImpl implements SchoolService {
         if (schoolId == null) {
             return false;
         }
+
         school.setActive(false);
-        return updateSchool(school);
+        updateSchool(school);
+        return true;
     }
 
     @Override
@@ -64,8 +76,18 @@ public class SchoolServiceImpl implements SchoolService {
         if (schoolId == null) {
             return false;
         }
-        school.setActive(true);
-        return updateSchool(school);
-    }
 
+        boolean isCountyActive = countyService.getById(school.getCounty().getId()).isActive();
+        boolean isCountryActive = countryService.getById(school.getCountry().getId()).isActive();
+
+        boolean isCityActive = cityService.getById(school.getCity().getId()).isActive();
+
+        if (!isCountyActive || !isCountryActive || !isCityActive) {
+            return false;
+        }
+
+        school.setActive(true);
+        updateSchool(school);
+        return true;
+    }
 }

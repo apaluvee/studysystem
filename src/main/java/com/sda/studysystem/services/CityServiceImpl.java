@@ -24,6 +24,8 @@ public class CityServiceImpl implements CityService {
     @Autowired
     private CountryService countryService;
 
+    @Autowired
+    private SchoolService schoolService;
 
     @Override
     public boolean createCity(City city) {
@@ -65,6 +67,11 @@ public class CityServiceImpl implements CityService {
 
         city.setActive(false);
         updateCity(city);
+
+        schoolService.getAllSchools().stream()
+                .filter(school -> school.getCity().getId().equals(cityId))
+                .forEach(school -> schoolService.deleteSchoolById(school.getId()));
+
         return true;
     }
 
@@ -83,6 +90,12 @@ public class CityServiceImpl implements CityService {
         }
 
         city.setActive(true);
-        return updateCity(city);
+        updateCity(city);
+
+        schoolService.getAllSchools().stream()
+                .filter(school -> school.getCity().getId().equals(cityId))
+                .forEach(school -> schoolService.restoreSchoolById(school.getId()));
+
+        return true;
     }
 }

@@ -2,7 +2,6 @@ package com.sda.studysystem.controllers;
 
 import com.sda.studysystem.models.Country;
 import com.sda.studysystem.models.County;
-import com.sda.studysystem.services.CityService;
 import com.sda.studysystem.services.CountryService;
 import com.sda.studysystem.services.CountyService;
 import org.springframework.beans.factory.annotation.Autowired;
