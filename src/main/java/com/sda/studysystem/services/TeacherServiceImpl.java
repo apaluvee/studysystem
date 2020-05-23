@@ -24,6 +24,7 @@ public class TeacherServiceImpl implements TeacherService {
             return false;
         }
         teacher.setTeacherId(teacher.getTeacherId());
+        teacher.setActive(true);
         teacherRepository.save(teacher);
         return true;
     }

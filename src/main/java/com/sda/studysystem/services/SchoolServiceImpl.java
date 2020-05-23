@@ -24,6 +24,7 @@ public class SchoolServiceImpl implements SchoolService {
             return false;
         }
         school.setId(school.getId());
+        school.setActive(true);
         schoolRepository.save(school);
         return true;
     }

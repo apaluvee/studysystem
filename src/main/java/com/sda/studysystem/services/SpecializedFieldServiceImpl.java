@@ -24,6 +24,7 @@ public class SpecializedFieldServiceImpl implements SpecializedFieldService {
             return false;
         }
         specializedField.setId(specializedField.getId());
+        specializedField.setActive(true);
         specializedFieldRepository.save(specializedField);
         return true;
     }

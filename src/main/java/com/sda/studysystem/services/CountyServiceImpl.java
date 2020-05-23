@@ -23,16 +23,18 @@ public class CountyServiceImpl implements CountyService {
         if (county == null) {
             return false;
         }
-        county.setId(county.getId());
+
+        county.setActive(true);
         countyRepository.save(county);
         return true;
     }
 
     @Override
     public boolean updateCounty(County county) {
-        if (county == null) {
+        if (county == null || !countyRepository.existsById(county.getId())) {
             return false;
         }
+
         countyRepository.saveAndFlush(county);
         return true;
     }
@@ -53,8 +55,10 @@ public class CountyServiceImpl implements CountyService {
         if (countyId == null) {
             return false;
         }
+
         county.setActive(false);
-        return updateCounty(county);
+        updateCounty(county);
+        return true;
     }
 
     @Override
@@ -63,8 +67,8 @@ public class CountyServiceImpl implements CountyService {
         if (countyId == null) {
             return false;
         }
+
         county.setActive(true);
         return updateCounty(county);
     }
-
 }

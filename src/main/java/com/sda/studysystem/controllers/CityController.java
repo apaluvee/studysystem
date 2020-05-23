@@ -38,7 +38,6 @@ public class CityController {
 
     @PostMapping("/add")
     public String addCity(City city, Model model) {
-        city.setActive(true);
         boolean createResult = cityService.createCity(city);
 
         if (createResult) {

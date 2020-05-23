@@ -38,7 +38,6 @@ public class StudentController {
 
     @PostMapping("/add")
     public String addStudent(Student student, Model model) {
-        student.setActive(true);
         boolean createResult = studentService.createStudent(student);
 
         if (createResult) {

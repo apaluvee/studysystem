@@ -23,16 +23,17 @@ public class CountryServiceImpl implements CountryService {
         if (country == null) {
             return false;
         }
-        country.setId(country.getId());
+        country.setActive(true);
         countryRepository.save(country);
         return true;
     }
 
     @Override
     public boolean updateCountry(Country country) {
-        if (country == null) {
+        if (country == null || !countryRepository.existsById(country.getId())) {
             return false;
         }
+
         countryRepository.saveAndFlush(country);
         return true;
     }
@@ -53,8 +54,10 @@ public class CountryServiceImpl implements CountryService {
         if (countryId == null) {
             return false;
         }
+
         country.setActive(false);
-        return updateCountry(country);
+        updateCountry(country);
+        return true;
     }
 
     @Override
@@ -63,8 +66,9 @@ public class CountryServiceImpl implements CountryService {
         if (countryId == null) {
             return false;
         }
+
         country.setActive(true);
         return updateCountry(country);
     }
-
 }
+

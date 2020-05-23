@@ -24,6 +24,7 @@ public class StudentServiceImpl implements StudentService {
             return false;
         }
         student.setStudentId(student.getStudentId());
+        student.setActive(true);
         studentRepository.save(student);
         return true;
     }

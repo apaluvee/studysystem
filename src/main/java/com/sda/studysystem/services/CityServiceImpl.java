@@ -24,6 +24,7 @@ public class CityServiceImpl implements CityService {
             return false;
         }
         city.setId(city.getId());
+        city.setActive(true);
         cityRepository.save(city);
         return true;
     }

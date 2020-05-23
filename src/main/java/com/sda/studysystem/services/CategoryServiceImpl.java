@@ -24,6 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
             return false;
         }
         category.setId(category.getId());
+        category.setActive(true);
         categoryRepository.save(category);
         return true;
     }
