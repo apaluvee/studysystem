@@ -1,9 +1,8 @@
 package com.sda.studysystem.controllers;
 
-
-import com.sda.studysystem.models.Category;
 import com.sda.studysystem.models.Country;
 import com.sda.studysystem.models.County;
+import com.sda.studysystem.services.CityService;
 import com.sda.studysystem.services.CountryService;
 import com.sda.studysystem.services.CountyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Controller for County operations
@@ -41,7 +41,8 @@ public class CountyController {
     @GetMapping("/add")
     public String addCountyForm(@ModelAttribute("county") County county, @ModelAttribute("messageType") String messageType,
                                 @ModelAttribute("message") String message, Model model) {
-        List<Country> countries = countryService.getAllCountries();
+        List<Country> countries = countryService.getAllCountries().stream()
+                .filter(Country::isActive).collect(Collectors.toList());
         model.addAttribute("countries", countries);
         return "county/county-add";
     }
@@ -70,6 +71,9 @@ public class CountyController {
             model.addAttribute("county", countyService.getById(countyId));
         }
 
+        List<Country> countries = countryService.getAllCountries().stream()
+                .filter(Country::isActive).collect(Collectors.toList());
+        model.addAttribute("countries", countries);
         return "county/county-update";
     }
 
@@ -79,13 +83,13 @@ public class CountyController {
         boolean updateResult = countyService.updateCounty(county);
 
         if (updateResult) {
-            redirectAttributes.addFlashAttribute("message", "County has been successfully updated.");
+            redirectAttributes.addFlashAttribute("message", "County #" + countyId + "has been successfully updated.");
             redirectAttributes.addFlashAttribute("messageType", "success");
             return "redirect:/county/";
         } else {
             redirectAttributes.addAttribute("id", countyId);
             redirectAttributes.addAttribute("county", county);
-            redirectAttributes.addFlashAttribute("message", "Error in updating a county!");
+            redirectAttributes.addFlashAttribute("message", "Error in updating a county #" + countyId + "!");
             redirectAttributes.addFlashAttribute("messageType", "error");
             return "redirect:/county/update/{id}";
         }
@@ -96,10 +100,10 @@ public class CountyController {
         boolean deleteResult = countyService.deleteCountyById(countyId);
 
         if (deleteResult) {
-            redirectAttributes.addFlashAttribute("message", "County has been successfully deleted.");
+            redirectAttributes.addFlashAttribute("message", "County #" + countyId + "has been successfully deleted.");
             redirectAttributes.addFlashAttribute("messageType", "success");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error in deleting a county!");
+            redirectAttributes.addFlashAttribute("message", "Error in deleting a county #" + countyId + "!");
             redirectAttributes.addFlashAttribute("messageType", "error");
         }
 
@@ -111,10 +115,10 @@ public class CountyController {
         boolean restoreResult = countyService.restoreCountyById(countyId);
 
         if (restoreResult) {
-            redirectAttributes.addFlashAttribute("message", "County has been successfully restored.");
+            redirectAttributes.addFlashAttribute("message", "County #" + countyId + " has been successfully restored.");
             redirectAttributes.addFlashAttribute("messageType", "success");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error in restoring a county!");
+            redirectAttributes.addFlashAttribute("message", "Error in restoring a county #" + countyId + "!");
             redirectAttributes.addFlashAttribute("messageType", "error");
         }
 

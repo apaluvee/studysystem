@@ -44,11 +44,17 @@
     <br/>
     <div class="container">
         <div class="jumbotron">
-            <h4 class="display-4">Add County</h4>
+            <h4 class="display-4">Update County</h4>
             <div th:if="${messageType} == 'error'" class="alert alert-danger" role="alert">
                 <span th:text="${message}"></span>
             </div>
             <form action="#" th:action="@{/county/update/{id}(id=${county.id})}" th:object="${county}" method="post">
+                <div class="form-group">
+                    <label for="country">Select Country</label>
+                    <select th:field="*{country.id}" class="custom-select" id="country" required>
+                        <option th:each="country : ${countries}" th:value="${country.id}" th:text="${country.name}"></option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="name">County name</label>
                     <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="nameHelp" required>

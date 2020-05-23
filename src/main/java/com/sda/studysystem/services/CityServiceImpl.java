@@ -18,12 +18,19 @@ public class CityServiceImpl implements CityService {
     @Autowired
     private CityRepository cityRepository;
 
+    @Autowired
+    private CountyService countyService;
+
+    @Autowired
+    private CountryService countryService;
+
+
     @Override
     public boolean createCity(City city) {
         if (city == null) {
             return false;
         }
-        city.setId(city.getId());
+
         city.setActive(true);
         cityRepository.save(city);
         return true;
@@ -31,9 +38,10 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public boolean updateCity(City city) {
-        if (city == null) {
+        if (city == null || !cityRepository.existsById(city.getId())) {
             return false;
         }
+
         cityRepository.saveAndFlush(city);
         return true;
     }
@@ -54,8 +62,10 @@ public class CityServiceImpl implements CityService {
         if (cityId == null) {
             return false;
         }
+
         city.setActive(false);
-        return updateCity(city);
+        updateCity(city);
+        return true;
     }
 
     @Override
@@ -64,8 +74,15 @@ public class CityServiceImpl implements CityService {
         if (cityId == null) {
             return false;
         }
+
+        boolean isCountyActive = countyService.getById(city.getCounty().getId()).isActive();
+        boolean isCountryActive = countryService.getById(city.getCountry().getId()).isActive();
+
+        if (!isCountyActive || !isCountryActive) {
+            return false;
+        }
+
         city.setActive(true);
         return updateCity(city);
     }
-
 }

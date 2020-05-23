@@ -2,7 +2,10 @@ package com.sda.studysystem.controllers;
 
 
 import com.sda.studysystem.models.Country;
+import com.sda.studysystem.models.County;
+import com.sda.studysystem.services.CityService;
 import com.sda.studysystem.services.CountryService;
+import com.sda.studysystem.services.CountyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Controller for Country operations
@@ -71,13 +75,13 @@ public class CountryController {
         boolean updateResult = countryService.updateCountry(country);
 
         if (updateResult) {
-            redirectAttributes.addFlashAttribute("message", "Country has been successfully updated.");
+            redirectAttributes.addFlashAttribute("message", "Country #" + countryId + " has been successfully updated.");
             redirectAttributes.addFlashAttribute("messageType", "success");
             return "redirect:/country/";
         } else {
             redirectAttributes.addAttribute("id", countryId);
             redirectAttributes.addAttribute("country", country);
-            redirectAttributes.addFlashAttribute("message", "Error in updating a country!");
+            redirectAttributes.addFlashAttribute("message", "Error in updating this country #" + countryId + "!");
             redirectAttributes.addFlashAttribute("messageType", "error");
             return "redirect:/country/update/{id}";
         }
@@ -88,10 +92,10 @@ public class CountryController {
         boolean deleteResult = countryService.deleteCountryById(countryId);
 
         if (deleteResult) {
-            redirectAttributes.addFlashAttribute("message", "Country has been successfully deleted.");
+            redirectAttributes.addFlashAttribute("message", "Country #" + countryId + " has been successfully deleted.");
             redirectAttributes.addFlashAttribute("messageType", "success");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error in deleting a country!");
+            redirectAttributes.addFlashAttribute("message", "Error in deleting country #" + countryId + "!");
             redirectAttributes.addFlashAttribute("messageType", "error");
         }
 
@@ -103,10 +107,10 @@ public class CountryController {
         boolean restoreResult = countryService.restoreCountryById(countryId);
 
         if (restoreResult) {
-            redirectAttributes.addFlashAttribute("message", "Country has been successfully restored.");
+            redirectAttributes.addFlashAttribute("message", "Country #" + countryId + " has been successfully restored.");
             redirectAttributes.addFlashAttribute("messageType", "success");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error in restoring a country!");
+            redirectAttributes.addFlashAttribute("message", "Error in restoring country #" + countryId + "!");
             redirectAttributes.addFlashAttribute("messageType", "error");
         }
 
