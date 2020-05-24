@@ -18,12 +18,15 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private SchoolService schoolService;
+
     @Override
     public boolean createStudent(Student student) {
         if (student == null) {
             return false;
         }
-        student.setStudentId(student.getStudentId());
+
         student.setActive(true);
         studentRepository.save(student);
         return true;
@@ -31,9 +34,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean updateStudent(Student student) {
-        if (student == null) {
+        if (student == null || !studentRepository.existsById(student.getStudentId())) {
             return false;
         }
+
         studentRepository.saveAndFlush(student);
         return true;
     }
@@ -51,9 +55,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public boolean deleteStudentById(Long studentId) {
         Student student = getById(studentId);
-        if (studentId == null) {
+        if (student == null) {
             return false;
         }
+
         student.setActive(false);
         return updateStudent(student);
     }
@@ -61,11 +66,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public boolean restoreStudentById(Long studentId) {
         Student student = getById(studentId);
-        if (studentId == null) {
+
+        if (student == null || !schoolService.getById(student.getSchool().getId()).isActive()) {
             return false;
         }
+
         student.setActive(true);
         return updateStudent(student);
     }
-
 }

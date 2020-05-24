@@ -27,6 +27,9 @@ public class SchoolServiceImpl implements SchoolService {
     @Autowired
     private CityService cityService;
 
+    @Autowired
+    private StudentService studentService;
+
     @Override
     public boolean createSchool(School school) {
         if (school == null) {
@@ -67,6 +70,11 @@ public class SchoolServiceImpl implements SchoolService {
 
         school.setActive(false);
         updateSchool(school);
+
+        studentService.getAllStudents().stream()
+                .filter(student -> student.getSchool().getId().equals(schoolId))
+                .forEach(student -> studentService.deleteStudentById(student.getStudentId()));
+
         return true;
     }
 
@@ -88,6 +96,11 @@ public class SchoolServiceImpl implements SchoolService {
 
         school.setActive(true);
         updateSchool(school);
+
+        studentService.getAllStudents().stream()
+                .filter(student -> student.getSchool().getId().equals(schoolId))
+                .forEach(student -> studentService.restoreStudentById(student.getStudentId()));
+
         return true;
     }
 }

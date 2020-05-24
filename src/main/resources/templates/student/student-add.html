@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Update SpecializedField | SDA Study Information System</title>
+    <title>Add Student | SDA Study Information System</title>
 </head>
 <body>
 <div class="container-fluid">
@@ -15,7 +15,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
@@ -44,24 +44,36 @@
     <br/>
     <div class="container">
         <div class="jumbotron">
-            <h4 class="display-4">Update Specialized Fields</h4>
+            <h4 class="display-4">Add Student</h4>
             <div th:if="${messageType} == 'error'" class="alert alert-danger" role="alert">
                 <span th:text="${message}"></span>
             </div>
-            <form action="#" th:action="@{/specializedField/update/{id}(id=${specializedField.id})}" th:object="${specializedField}" method="post">
+            <form action="#" th:action="@{/student/add}" th:object="${student}" method="post">
                 <div class="form-group">
-                    <label for="category">Select Category</label>
-                    <select th:field="*{category.id}" class="custom-select" id="category" required>
-                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                    <label for="name">Student name</label>
+                    <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="nameHelp" required>
+                </div>
+                <div class="form-group">
+                    <label for="country">Select school</label>
+                    <select th:field="*{school.id}" class="custom-select" id="country" required>
+                        <option th:each="school : ${schools}" th:value="${school.id}" th:text="${school.name}"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="name">Specialized Field name</label>
-                    <input type="text" th:field="*{name}" class="form-control" id="name" aria-describedby="nameHelp" required>
+                    <label class="font-weight-bold" for="joindate">Join date</label>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="mm-dd-yyyy" id="joindate" th:field="*{joinDate}"/>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" onclick="d.toggle()" type="button"></button>
+                        </div>
+                    </div>
                 </div>
-                <input type="hidden" th:field="*{active}" class="form-control" id="active">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="/specializedField/" class="btn btn-success">Cancel</a>
+                <div class="form-group">
+                    <label for="grade">Grade</label>
+                    <input type="text" th:field="*{grade}" class="form-control" id="grade" aria-describedby="gradeHelp" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+                <a href="/student/" class="btn btn-success">Cancel</a>
             </form>
         </div>
     </div>
