@@ -64,43 +64,33 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public boolean deleteSchoolById(Long schoolId) {
         School school = getById(schoolId);
-        if (schoolId == null) {
+        if (school == null) {
             return false;
         }
 
         school.setActive(false);
         updateSchool(school);
-
         studentService.getAllStudents().stream()
                 .filter(student -> student.getSchool().getId().equals(schoolId))
                 .forEach(student -> studentService.deleteStudentById(student.getStudentId()));
-
         return true;
     }
 
     @Override
     public boolean restoreSchoolById(Long schoolId) {
         School school = getById(schoolId);
-        if (schoolId == null) {
-            return false;
-        }
 
-        boolean isCountyActive = countyService.getById(school.getCounty().getId()).isActive();
-        boolean isCountryActive = countryService.getById(school.getCountry().getId()).isActive();
-
-        boolean isCityActive = cityService.getById(school.getCity().getId()).isActive();
-
-        if (!isCountyActive || !isCountryActive || !isCityActive) {
+        if (school == null || !countyService.getById(school.getCounty().getId()).isActive() ||
+                !countryService.getById(school.getCountry().getId()).isActive() ||
+                !cityService.getById(school.getCity().getId()).isActive()) {
             return false;
         }
 
         school.setActive(true);
         updateSchool(school);
-
         studentService.getAllStudents().stream()
                 .filter(student -> student.getSchool().getId().equals(schoolId))
                 .forEach(student -> studentService.restoreStudentById(student.getStudentId()));
-
         return true;
     }
 }
