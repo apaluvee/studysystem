@@ -65,15 +65,15 @@
                     </thead>
                     <tbody>
                     <tr th:each="student : ${students}">
-                        <th scope="row" th:text="${student.id}"></th>
+                        <th scope="row" th:text="${student.studentId}"></th>
                         <td th:text="${student.name}"></td>
                         <td th:text="${student.school.name}"></td>
                         <td th:text="${student.joinDate}"></td>
                         <td th:text="${student.grade}"></td>
                         <td>
-                            <a th:if="${student.active} == true" th:href="@{/student/update/{id}(id=${student.id})}" class="btn btn-primary">Update</a>
-                            <a th:if="${student.active} == true" th:href="@{/student/delete/{id}(id=${student.id})}" class="btn btn-danger">Delete</a>
-                            <a th:if="${student.active} == false" th:href="@{/student/restore/{id}(id=${student.id})}" class="btn btn-warning">Restore</a>
+                            <a th:if="${student.active} == true" th:href="@{/student/update/{id}(id=${student.studentId})}" class="btn btn-primary">Update</a>
+                            <a th:if="${student.active} == true" th:href="@{/student/delete/{id}(id=${student.studentId})}" class="btn btn-danger">Delete</a>
+                            <a th:if="${student.active} == false" th:href="@{/student/restore/{id}(id=${student.studentId})}" class="btn btn-warning">Restore</a>
                         </td>
                     </tr>
                     </tbody>
