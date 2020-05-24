@@ -18,12 +18,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private SpecializedFieldService specializedFieldService;
+
     @Override
     public boolean createCategory(Category category) {
         if (category == null) {
             return false;
         }
-        category.setId(category.getId());
         category.setActive(true);
         categoryRepository.save(category);
         return true;
@@ -31,9 +33,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public boolean updateCategory(Category category) {
-        if (category == null) {
+        if (category == null || !categoryRepository.existsById(category.getId())) {
             return false;
         }
+
         categoryRepository.saveAndFlush(category);
         return true;
     }
@@ -54,8 +57,17 @@ public class CategoryServiceImpl implements CategoryService {
         if (categoryId == null) {
             return false;
         }
+
         category.setActive(false);
-        return updateCategory(category);
+        updateCategory(category);
+
+
+        specializedFieldService.getAllSpecializedFields().stream()
+                .filter(specializedField -> specializedField.getCategory().getId().equals(categoryId))
+                .forEach(specializedField -> specializedFieldService.deleteSpecializedFieldById(specializedField.getId()));
+
+
+        return true;
     }
 
     @Override
@@ -64,8 +76,17 @@ public class CategoryServiceImpl implements CategoryService {
         if (categoryId == null) {
             return false;
         }
-        category.setActive(true);
-        return updateCategory(category);
-    }
 
+        category.setActive(true);
+        updateCategory(category);
+
+
+        specializedFieldService.getAllSpecializedFields().stream()
+                .filter(specializedField -> specializedField.getCategory().getId().equals(categoryId))
+                .forEach(specializedField -> specializedFieldService.restoreSpecializedFieldById(specializedField.getId()));
+
+
+
+        return true;
+    }
 }

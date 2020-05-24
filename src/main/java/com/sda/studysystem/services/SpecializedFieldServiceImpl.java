@@ -1,6 +1,8 @@
 package com.sda.studysystem.services;
 
 import com.sda.studysystem.models.SpecializedField;
+import com.sda.studysystem.models.SpecializedField;
+import com.sda.studysystem.repositories.SpecializedFieldRepository;
 import com.sda.studysystem.repositories.SpecializedFieldRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +20,15 @@ public class SpecializedFieldServiceImpl implements SpecializedFieldService {
     @Autowired
     private SpecializedFieldRepository specializedFieldRepository;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @Override
     public boolean createSpecializedField(SpecializedField specializedField) {
         if (specializedField == null) {
             return false;
         }
-        specializedField.setId(specializedField.getId());
+
         specializedField.setActive(true);
         specializedFieldRepository.save(specializedField);
         return true;
@@ -31,9 +36,10 @@ public class SpecializedFieldServiceImpl implements SpecializedFieldService {
 
     @Override
     public boolean updateSpecializedField(SpecializedField specializedField) {
-        if (specializedField == null) {
+        if (specializedField == null || !specializedFieldRepository.existsById(specializedField.getId())) {
             return false;
         }
+
         specializedFieldRepository.saveAndFlush(specializedField);
         return true;
     }
@@ -54,18 +60,30 @@ public class SpecializedFieldServiceImpl implements SpecializedFieldService {
         if (specializedFieldId == null) {
             return false;
         }
+
         specializedField.setActive(false);
-        return updateSpecializedField(specializedField);
+        updateSpecializedField(specializedField);
+        
+        ////
+
+        return true;
     }
 
     @Override
     public boolean restoreSpecializedFieldById(Long specializedFieldId) {
         SpecializedField specializedField = getById(specializedFieldId);
-        if (specializedFieldId == null) {
+
+        if (specializedFieldId == null || !categoryService.getById(specializedField.getCategory().getId()).isActive()) {
             return false;
         }
-        specializedField.setActive(true);
-        return updateSpecializedField(specializedField);
-    }
 
+        specializedField.setActive(true);
+        updateSpecializedField(specializedField);
+
+        
+        ////
+        
+
+        return true;
+    }
 }
