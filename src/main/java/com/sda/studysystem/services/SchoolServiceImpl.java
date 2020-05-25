@@ -19,12 +19,6 @@ public class SchoolServiceImpl implements SchoolService {
     private SchoolRepository schoolRepository;
 
     @Autowired
-    private CountyService countyService;
-
-    @Autowired
-    private CountryService countryService;
-
-    @Autowired
     private CityService cityService;
 
     @Autowired
@@ -70,9 +64,11 @@ public class SchoolServiceImpl implements SchoolService {
 
         school.setActive(false);
         updateSchool(school);
+
         studentService.getAllStudents().stream()
                 .filter(student -> student.getSchool().getId().equals(schoolId))
                 .forEach(student -> studentService.deleteStudentById(student.getStudentId()));
+
         return true;
     }
 
@@ -80,17 +76,18 @@ public class SchoolServiceImpl implements SchoolService {
     public boolean restoreSchoolById(Long schoolId) {
         School school = getById(schoolId);
 
-        if (school == null || !countyService.getById(school.getCounty().getId()).isActive() ||
-                !countryService.getById(school.getCountry().getId()).isActive() ||
-                !cityService.getById(school.getCity().getId()).isActive()) {
+        if (school == null || !cityService.getById(school.getCity().getId()).isActive()) {
             return false;
         }
 
         school.setActive(true);
         updateSchool(school);
+
         studentService.getAllStudents().stream()
                 .filter(student -> student.getSchool().getId().equals(schoolId))
                 .forEach(student -> studentService.restoreStudentById(student.getStudentId()));
+
         return true;
     }
+
 }

@@ -21,12 +21,6 @@ public class CountryServiceImpl implements CountryService {
     @Autowired
     private CountyService countyService;
 
-    @Autowired
-    private CityService cityService;
-
-    @Autowired
-    private SchoolService schoolService;
-
     @Override
     public boolean createCountry(Country country) {
         if (country == null) {
@@ -71,13 +65,6 @@ public class CountryServiceImpl implements CountryService {
                 .filter(county -> county.getCountry().getId().equals(countryId))
                 .forEach(county -> countyService.deleteCountyById(county.getId()));
 
-        cityService.getAllCities().stream()
-                .filter(city -> city.getCountry().getId().equals(countryId))
-                .forEach(city -> cityService.deleteCityById(city.getId()));
-
-        schoolService.getAllSchools().stream()
-                .filter(school -> school.getCountry().getId().equals(countryId))
-                .forEach(school -> schoolService.deleteSchoolById(school.getId()));
         return true;
     }
 
@@ -95,15 +82,8 @@ public class CountryServiceImpl implements CountryService {
                 .filter(county -> county.getCountry().getId().equals(countryId))
                 .forEach(county -> countyService.restoreCountyById(county.getId()));
 
-        cityService.getAllCities().stream()
-                .filter(city -> city.getCountry().getId().equals(countryId))
-                .forEach(city -> cityService.restoreCityById(city.getId()));
-
-        schoolService.getAllSchools().stream()
-                .filter(school -> school.getCountry().getId().equals(countryId))
-                .forEach(school -> schoolService.restoreSchoolById(school.getId()));
-
         return true;
     }
+
 }
 

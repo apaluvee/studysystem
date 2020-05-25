@@ -24,9 +24,6 @@ public class CountyServiceImpl implements CountyService {
     @Autowired
     private CountryService countryService;
 
-    @Autowired
-    private SchoolService schoolService;
-
     @Override
     public boolean createCounty(County county) {
         if (county == null) {
@@ -72,10 +69,6 @@ public class CountyServiceImpl implements CountyService {
                 .filter(city -> city.getCounty().getId().equals(countyId))
                 .forEach(city -> cityService.deleteCityById(city.getId()));
 
-        schoolService.getAllSchools().stream()
-                .filter(school -> school.getCounty().getId().equals(countyId))
-                .forEach(school -> schoolService.deleteSchoolById(school.getId()));
-
         return true;
     }
 
@@ -94,10 +87,7 @@ public class CountyServiceImpl implements CountyService {
                 .filter(city -> city.getCounty().getId().equals(countyId))
                 .forEach(city -> cityService.restoreCityById(city.getId()));
 
-        schoolService.getAllSchools().stream()
-                .filter(school -> school.getCounty().getId().equals(countyId))
-                .forEach(school -> schoolService.restoreSchoolById(school.getId()));
-
         return true;
     }
+
 }

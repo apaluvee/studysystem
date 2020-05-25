@@ -4,7 +4,6 @@ import com.sda.studysystem.models.Category;
 import com.sda.studysystem.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
@@ -61,11 +60,9 @@ public class CategoryServiceImpl implements CategoryService {
         category.setActive(false);
         updateCategory(category);
 
-
         specializedFieldService.getAllSpecializedFields().stream()
                 .filter(specializedField -> specializedField.getCategory().getId().equals(categoryId))
                 .forEach(specializedField -> specializedFieldService.deleteSpecializedFieldById(specializedField.getId()));
-
 
         return true;
     }
@@ -80,13 +77,11 @@ public class CategoryServiceImpl implements CategoryService {
         category.setActive(true);
         updateCategory(category);
 
-
         specializedFieldService.getAllSpecializedFields().stream()
                 .filter(specializedField -> specializedField.getCategory().getId().equals(categoryId))
                 .forEach(specializedField -> specializedFieldService.restoreSpecializedFieldById(specializedField.getId()));
 
-
-
         return true;
     }
+
 }

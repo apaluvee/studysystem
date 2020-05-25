@@ -19,10 +19,8 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long studentId;
     private String name;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate joinDate;
-
     private boolean isActive;
     @OneToOne
     private School school;

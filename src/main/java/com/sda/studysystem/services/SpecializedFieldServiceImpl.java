@@ -62,11 +62,8 @@ public class SpecializedFieldServiceImpl implements SpecializedFieldService {
         }
 
         specializedField.setActive(false);
-        updateSpecializedField(specializedField);
-        
-        ////
 
-        return true;
+        return updateSpecializedField(specializedField);
     }
 
     @Override
@@ -78,12 +75,8 @@ public class SpecializedFieldServiceImpl implements SpecializedFieldService {
         }
 
         specializedField.setActive(true);
-        updateSpecializedField(specializedField);
 
-        
-        ////
-        
-
-        return true;
+        return updateSpecializedField(specializedField);
     }
+
 }

@@ -22,9 +22,6 @@ public class CityServiceImpl implements CityService {
     private CountyService countyService;
 
     @Autowired
-    private CountryService countryService;
-
-    @Autowired
     private SchoolService schoolService;
 
     @Override
@@ -83,9 +80,7 @@ public class CityServiceImpl implements CityService {
         }
 
         boolean isCountyActive = countyService.getById(city.getCounty().getId()).isActive();
-        boolean isCountryActive = countryService.getById(city.getCountry().getId()).isActive();
-
-        if (!isCountyActive || !isCountryActive) {
+        if (!isCountyActive) {
             return false;
         }
 
@@ -98,4 +93,5 @@ public class CityServiceImpl implements CityService {
 
         return true;
     }
+
 }
