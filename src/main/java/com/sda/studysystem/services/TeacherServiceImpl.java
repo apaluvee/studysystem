@@ -18,12 +18,15 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
 
+    @Autowired
+    private SchoolService schoolService;
+
     @Override
     public boolean createTeacher(Teacher teacher) {
         if (teacher == null) {
             return false;
         }
-        teacher.setTeacherId(teacher.getTeacherId());
+
         teacher.setActive(true);
         teacherRepository.save(teacher);
         return true;
@@ -31,9 +34,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public boolean updateTeacher(Teacher teacher) {
-        if (teacher == null) {
+        if (teacher == null || !teacherRepository.existsById(teacher.getTeacherId())) {
             return false;
         }
+
         teacherRepository.saveAndFlush(teacher);
         return true;
     }
@@ -51,9 +55,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public boolean deleteTeacherById(Long teacherId) {
         Teacher teacher = getById(teacherId);
-        if (teacherId == null) {
+        if (teacher == null) {
             return false;
         }
+
         teacher.setActive(false);
         return updateTeacher(teacher);
     }
@@ -61,9 +66,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public boolean restoreTeacherById(Long teacherId) {
         Teacher teacher = getById(teacherId);
-        if (teacherId == null) {
+
+        if (teacher == null || !schoolService.getById(teacher.getSchool().getId()).isActive()) {
             return false;
         }
+
         teacher.setActive(true);
         return updateTeacher(teacher);
     }
