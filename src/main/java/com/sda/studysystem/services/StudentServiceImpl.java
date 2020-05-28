@@ -74,4 +74,5 @@ public class StudentServiceImpl implements StudentService {
         student.setActive(true);
         return updateStudent(student);
     }
+
 }
