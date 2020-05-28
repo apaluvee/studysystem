@@ -65,10 +65,12 @@
                         <input class="form-control" type="date" placeholder="yyyy-MM-dd" id="joindate" th:field="*{joinDate}"/>
                     </div>
                 </div>
+                <!--
                 <div class="form-group">
                     <label for="specialistFields">Specialized Field</label>
                     <input type="text" th:field="*{specialistFields}" class="form-control" id="specialistFields" aria-describedby="specialistFieldsHelp" required>
                 </div>
+                -->
                 <input type="hidden" th:field="*{active}" class="form-control" id="active">
                 <button type="submit" class="btn btn-primary">Update</button>
                 <a href="/teacher/" class="btn btn-success">Cancel</a>
